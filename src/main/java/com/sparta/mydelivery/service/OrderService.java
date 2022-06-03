@@ -1,6 +1,7 @@
 package com.sparta.mydelivery.service;
 
 import com.sparta.mydelivery.dto.OrderDetailRequestDto;
+import com.sparta.mydelivery.dto.OrderDetailResponse;
 import com.sparta.mydelivery.dto.OrderRequestDto;
 import com.sparta.mydelivery.exception.CustomException;
 import com.sparta.mydelivery.exception.ErrorCode;
@@ -47,6 +48,7 @@ public class OrderService {
             order.setRestaurant(res);
             order.setDeliveryFee(res.getDeliveryFee());
             order.setTotalPrice(0);
+            orderRepository.save(order);
 
             List<OrderDetailRequestDto>foods = orderRequestDto.getFoods();
             int count = 0;
@@ -63,6 +65,9 @@ public class OrderService {
 
              order.setTotalPrice(count);
             orderRepository.save(order);
+
+            OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
+
 
 
 
