@@ -11,7 +11,7 @@ import static com.sparta.mydelivery.exception.ErrorCode.TEMPORARY_SERVER_ERROR;
 @RestControllerAdvice//json형태로 익셉션을 처리한다.
 public class RestApiExceptionHandler {
 
-    @ExceptionHandler(value = { Exception.class })
+    @ExceptionHandler(value =  Exception.class )
     public ResponseEntity<RestApiException> handleApiRequestException(Exception ex) {
         RestApiException restApiException = RestApiException.of(TEMPORARY_SERVER_ERROR);
         restApiException.setHttpStatus(HttpStatus.BAD_REQUEST);

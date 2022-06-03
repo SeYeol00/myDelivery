@@ -8,6 +8,8 @@ import com.sparta.mydelivery.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class RestaurtantService {
@@ -36,5 +38,9 @@ public class RestaurtantService {
         restaurantRepository.save(restaurant);
 
         return restaurant;
+    }
+
+    public List<Restaurant> getRestaurants() {
+        return restaurantRepository.findAll();
     }
 }

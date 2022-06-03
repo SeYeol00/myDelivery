@@ -1,13 +1,12 @@
 package com.sparta.mydelivery.repository;
 
-import com.sparta.mydelivery.model.Restaurant;
+import com.sparta.mydelivery.model.OrderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant,Long> {
-    List<Restaurant> findAllById(Long Id);
-
+public interface OrderDetailRepository extends JpaRepository<OrderDetail,Long> {
+    List<OrderDetail> findAllByOrderId(Long orderId);
 }

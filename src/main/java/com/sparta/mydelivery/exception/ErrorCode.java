@@ -15,6 +15,9 @@ public enum ErrorCode {
     OUT_OF_RANGE_DELIVERY_FEE(HttpStatus.BAD_REQUEST, "400_3", "기본 배달 가격은 0원 ~ 10000원 입니다."),
     NOT500WON_MIN_DELIVERY_FEE(HttpStatus.BAD_REQUEST, "400_4", "500원 단위로만 입력 가능합니다."),
 
+    OUT_OF_RANGE_FOOD_PRICE(HttpStatus.BAD_REQUEST, "400_5", "음식 가격은 100원 ~ 1000000원 입니다."),
+    NOT100WON_FOOD_PRICE(HttpStatus.BAD_REQUEST, "400_6", "100원 단위로만 입력 가능합니다."),
+
 
     // 404 Not Found
     NOT_FOUND_RESTAURANT(HttpStatus.NOT_FOUND, "404_1", "해당 음식점 아이디가 존재하지 않습니다."),
