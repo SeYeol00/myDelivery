@@ -1,26 +1,33 @@
 package com.sparta.mydelivery.exception;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-
-import static com.sparta.springcore.service.ProductService.MIN_MY_PRICE;
-
+@RequiredArgsConstructor
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+@Getter
 public enum ErrorCode {
     // 400 Bad Request
-    DUPLICATED_FOLDER_NAME(HttpStatus.BAD_REQUEST, "400_1", "중복폴더명이 이미 존재합니다."),
-    BELOW_MIN_MY_PRICE(HttpStatus.BAD_REQUEST, "400_2", "최저 희망가는 최소 " + MIN_MY_PRICE + " 원 이상으로 설정해 주세요."),
+    TEMPORARY_SERVER_ERROR(HttpStatus.BAD_REQUEST, "400_0", "잘못된 요청입니다."),
+    OUT_OF_RANGE_MIN_ORDER_PRICE(HttpStatus.BAD_REQUEST, "400_1", "최소 주문 가격은 1,000원 ~ 100,000원 입니다."),
+    NOT100WON_MIN_ORDER_PRICE(HttpStatus.BAD_REQUEST, "400_2", "100원 단위로만 입력 가능합니다."),
+    OUT_OF_RANGE_DELIVERY_FEE(HttpStatus.BAD_REQUEST, "400_3", "기본 배달 가격은 0원 ~ 10000원 입니다."),
+    NOT500WON_MIN_DELIVERY_FEE(HttpStatus.BAD_REQUEST, "400_4", "500원 단위로만 입력 가능합니다."),
+
 
     // 404 Not Found
-    NOT_FOUND_PRODUCT(HttpStatus.NOT_FOUND, "404_1", "해당 관심상품 아이디가 존재하지 않습니다."),
-    NOT_FOUND_FOLDER(HttpStatus.NOT_FOUND, "404_2", "해당 폴더 아이디가 존재하지 않습니다."),
+    NOT_FOUND_RESTAURANT(HttpStatus.NOT_FOUND, "404_1", "해당 음식점 아이디가 존재하지 않습니다."),
+    NOT_FOUND_FOOD(HttpStatus.NOT_FOUND, "404_2", "해당 음식 아이디가 존재하지 않습니다."),
     ;
 
     private final HttpStatus httpStatus;
     private final String errorCode;
     private final String errorMessage;
 
-    ErrorCode(HttpStatus httpStatus, String errorCode, String errorMessage) {
+    /*ErrorCode(HttpStatus httpStatus, String errorCode, String errorMessage) {
         this.httpStatus = httpStatus;
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
-    }
+    }*/
 }
