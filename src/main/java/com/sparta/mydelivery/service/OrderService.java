@@ -98,9 +98,10 @@ public class OrderService {
 
     }
 
-    public OrderAllResponseDto getOrders() {
-        OrderAllResponseDto allResponseDto = new OrderAllResponseDto();
+    public List<OrderResponseDto> getOrders() {
         List<Order> Orders = orderRepository.findAll();
+
+        List<OrderResponseDto> responseDtoList = new ArrayList<>();
 
         for(Order currentOrder:Orders){
             OrderResponseDto orderResponseDto = new OrderResponseDto();
@@ -117,9 +118,9 @@ public class OrderService {
             orderResponseDto.setDeliveryFee(currentOrder.getDeliveryFee());
             orderResponseDto.setTotalPrice(currentOrder.getTotalPrice());
             orderResponseDto.setFoods(orderDetailResponseDtos);
-            allResponseDto.getOrders().add(orderResponseDto);
+            responseDtoList.add(orderResponseDto);
         }
 
-        return allResponseDto;
+        return responseDtoList;
     }
 }

@@ -1,6 +1,5 @@
 package com.sparta.mydelivery.controller;
 
-import com.sparta.mydelivery.dto.OrderAllResponseDto;
 import com.sparta.mydelivery.dto.OrderRequestDto;
 import com.sparta.mydelivery.dto.OrderResponseDto;
 import com.sparta.mydelivery.repository.OrderRepository;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class OrderController {
@@ -27,7 +28,7 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    public OrderAllResponseDto getOrders(){
+    public List<OrderResponseDto> getOrders(){
         return orderService.getOrders();
     }
 

@@ -198,39 +198,39 @@ class OrderIntegrationTest {
         HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
         // when
-        ResponseEntity<OrderDto> response = restTemplate.postForEntity(
+        ResponseEntity<OrderResponseDto> response = restTemplate.postForEntity(
                 "/order/request",
                 request,
-                OrderDto.class);
+                OrderResponseDto.class);
 
         // then
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        OrderDto orderDto = response.getBody();
-        assertNotNull(orderDto);
+        OrderResponseDto orderResponseDto = response.getBody();
+        assertNotNull(orderResponseDto);
         // 음식점 이름
-        assertEquals(registeredRestaurant.restaurantName, orderDto.restaurantName);
+        assertEquals(registeredRestaurant.restaurantName, orderResponseDto.restaurantName);
 
         // 음식 주문 확인
-        assertEquals(3, orderDto.foods.size());
+        assertEquals(3, orderResponseDto.foods.size());
         // 음식1 주문 확인
-        FoodOrderDto foodOrder1 = orderDto.foods.stream()
-                .filter(foodOrderDto -> foodOrderDto.foodName.equals(food1.getFoodName()))
+        OrderDetailResponseDto foodOrder1 = orderResponseDto.foods.stream()
+                .filter(orderDetailResponseDto -> orderDetailResponseDto.foodName.equals(food1.getFoodName()))
                 .findAny().orElse(null);
         assertNotNull(foodOrder1);
         assertEquals(food1.foodName, foodOrder1.foodName);
         assertEquals(foodOrder1.quantity, foodOrder1.quantity);
         assertEquals(10900, foodOrder1.price);
         // 음식2 주문 확인
-        FoodOrderDto foodOrder2 = orderDto.foods.stream()
-                .filter(foodOrderDto -> foodOrderDto.foodName.equals(food2.getFoodName()))
+        OrderDetailResponseDto foodOrder2 = orderResponseDto.foods.stream()
+                .filter(orderDetailResponseDto -> orderDetailResponseDto.foodName.equals(food2.getFoodName()))
                 .findAny().orElse(null);
         assertNotNull(foodOrder2);
         assertEquals(food2.foodName, foodOrder2.foodName);
         assertEquals(foodOrder2.quantity, foodOrder2.quantity);
         assertEquals(9800, foodOrder2.price);
         // 음식3 주문 확인
-        FoodOrderDto foodOrder3 = orderDto.foods.stream()
-                .filter(foodOrderDto -> foodOrderDto.foodName.equals(food3.getFoodName()))
+        OrderDetailResponseDto foodOrder3 = orderResponseDto.foods.stream()
+                .filter(orderDetailResponseDto -> orderDetailResponseDto.foodName.equals(food3.getFoodName()))
                 .findAny().orElse(null);
         assertNotNull(foodOrder3);
         assertEquals(food3.foodName, foodOrder3.foodName);
@@ -238,10 +238,10 @@ class OrderIntegrationTest {
         assertEquals(17700, foodOrder3.price);
 
         // 배달비 확인
-        assertEquals(2000, orderDto.deliveryFee);
+        assertEquals(2000, orderResponseDto.deliveryFee);
 
         // 총 결제 금액 확인
-        assertEquals(40400, orderDto.totalPrice);
+        assertEquals(40400, orderResponseDto.totalPrice);
     }
 
     @Test
@@ -268,10 +268,10 @@ class OrderIntegrationTest {
         HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
         // when
-        ResponseEntity<OrderDto> response = restTemplate.postForEntity(
+        ResponseEntity<OrderResponseDto> response = restTemplate.postForEntity(
                 "/order/request",
                 request,
-                OrderDto.class);
+                OrderResponseDto.class);
 
         // then
         assertTrue(
@@ -304,10 +304,10 @@ class OrderIntegrationTest {
         HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
         // when
-        ResponseEntity<OrderDto> response = restTemplate.postForEntity(
+        ResponseEntity<OrderResponseDto> response = restTemplate.postForEntity(
                 "/order/request",
                 request,
-                OrderDto.class);
+                OrderResponseDto.class);
 
         // then
         assertTrue(
@@ -340,10 +340,10 @@ class OrderIntegrationTest {
         HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
         // when
-        ResponseEntity<OrderDto> response = restTemplate.postForEntity(
+        ResponseEntity<OrderResponseDto> response = restTemplate.postForEntity(
                 "/order/request",
                 request,
-                OrderDto.class);
+                OrderResponseDto.class);
 
         // then
         assertTrue(
@@ -357,39 +357,39 @@ class OrderIntegrationTest {
     @DisplayName("주문 조회하기")
     void test8() {
         // when
-        ResponseEntity<OrderDto[]> response = restTemplate.getForEntity(
+        ResponseEntity<OrderResponseDto[]> response = restTemplate.getForEntity(
                 "/orders",
-                OrderDto[].class);
+                OrderResponseDto[].class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals(1, response.getBody().length);
 
-        OrderDto orderDto = response.getBody()[0];
+        OrderResponseDto orderResponseDto = response.getBody()[0];
         // 음식점 이름
-        assertEquals(registeredRestaurant.restaurantName, orderDto.restaurantName);
+        assertEquals(registeredRestaurant.restaurantName, orderResponseDto.restaurantName);
 
         // 음식 주문 확인
-        assertEquals(3, orderDto.foods.size());
+        assertEquals(3, orderResponseDto.foods.size());
         // 음식1 주문 확인
-        FoodOrderDto foodOrder1 = orderDto.foods.stream()
-                .filter(foodOrderDto -> foodOrderDto.foodName.equals(food1.getFoodName()))
+        OrderDetailResponseDto foodOrder1 = orderResponseDto.foods.stream()
+                .filter(orderDetailResponseDto -> orderDetailResponseDto.foodName.equals(food1.getFoodName()))
                 .findAny().orElse(null);
         assertNotNull(foodOrder1);
         assertEquals(food1.foodName, foodOrder1.foodName);
         assertEquals(foodOrder1.quantity, foodOrder1.quantity);
         assertEquals(10900, foodOrder1.price);
         // 음식2 주문 확인
-        FoodOrderDto foodOrder2 = orderDto.foods.stream()
-                .filter(foodOrderDto -> foodOrderDto.foodName.equals(food2.getFoodName()))
+        OrderDetailResponseDto foodOrder2 = orderResponseDto.foods.stream()
+                .filter(orderDetailResponseDto -> orderDetailResponseDto.foodName.equals(food2.getFoodName()))
                 .findAny().orElse(null);
         assertNotNull(foodOrder2);
         assertEquals(food2.foodName, foodOrder2.foodName);
         assertEquals(foodOrder2.quantity, foodOrder2.quantity);
         assertEquals(9800, foodOrder2.price);
         // 음식3 주문 확인
-        FoodOrderDto foodOrder3 = orderDto.foods.stream()
-                .filter(foodOrderDto -> foodOrderDto.foodName.equals(food3.getFoodName()))
+        OrderDetailResponseDto foodOrder3 = orderResponseDto.foods.stream()
+                .filter(orderDetailResponseDto -> orderDetailResponseDto.foodName.equals(food3.getFoodName()))
                 .findAny().orElse(null);
         assertNotNull(foodOrder3);
         assertEquals(food3.foodName, foodOrder3.foodName);
@@ -397,10 +397,10 @@ class OrderIntegrationTest {
         assertEquals(17700, foodOrder3.price);
 
         // 배달비 확인
-        assertEquals(2000, orderDto.deliveryFee);
+        assertEquals(2000, orderResponseDto.deliveryFee);
 
         // 총 결제 금액 확인
-        assertEquals(40400, orderDto.totalPrice);
+        assertEquals(40400, orderResponseDto.totalPrice);
     }
 
     @Getter
@@ -421,16 +421,16 @@ class OrderIntegrationTest {
 
     @Getter
     @Setter
-    static class OrderDto {
+    static class OrderResponseDto {
         private String restaurantName;
-        private List<FoodOrderDto> foods;
+        private List<OrderDetailResponseDto> foods;
         private int deliveryFee;
         private int totalPrice;
     }
 
     @Getter
     @Setter
-    static class FoodOrderDto {
+    static class OrderDetailResponseDto {
         String foodName;
         int quantity;
         int price;
