@@ -19,7 +19,7 @@ public class Food {
     @JoinColumn(name = "RESTUARANT_ID", nullable = false) //디비 연관관계 설정
     private Restaurant restaurant;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String foodName;
 
     @Column(nullable = false)

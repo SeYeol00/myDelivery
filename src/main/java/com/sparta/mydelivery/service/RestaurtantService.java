@@ -8,6 +8,7 @@ import com.sparta.mydelivery.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -19,7 +20,7 @@ public class RestaurtantService {
     public RestaurtantService(RestaurantRepository restaurantRepository){
         this.restaurantRepository = restaurantRepository;
     }
-
+    @Transactional
     public Restaurant createRestaurant(RestaurantRequestDto restaurantRequestDto) throws Exception {
 
         Restaurant restaurant = new Restaurant(restaurantRequestDto);

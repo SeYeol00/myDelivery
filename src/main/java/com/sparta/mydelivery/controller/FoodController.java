@@ -2,13 +2,9 @@ package com.sparta.mydelivery.controller;
 
 import com.sparta.mydelivery.dto.FoodRequestDto;
 import com.sparta.mydelivery.model.Food;
-import com.sparta.mydelivery.model.Restaurant;
 import com.sparta.mydelivery.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,8 +20,9 @@ public class FoodController {
 
 
     @PostMapping("/restaurant/{restaurantId}/food/register")
-    public Food createFood(@PathVariable Long restaurantId, FoodRequestDto foodRequestDto){
-        return foodService.createFood(restaurantId,foodRequestDto);
+    public void createFood(@PathVariable Long restaurantId, @RequestBody List<FoodRequestDto> foodList){
+        System.out.println(foodList.toString());
+        foodService.createFood(restaurantId,foodList);
     }
 
     @GetMapping("/restaurant/{restaurantId}/foods")

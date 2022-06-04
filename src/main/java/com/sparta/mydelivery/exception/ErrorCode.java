@@ -17,6 +17,10 @@ public enum ErrorCode {
 
     OUT_OF_RANGE_FOOD_PRICE(HttpStatus.BAD_REQUEST, "400_5", "음식 가격은 100원 ~ 1000000원 입니다."),
     NOT100WON_FOOD_PRICE(HttpStatus.BAD_REQUEST, "400_6", "100원 단위로만 입력 가능합니다."),
+    FOOD_QUANTITY_NOT_ALLOWED(HttpStatus.BAD_REQUEST, "400_7", "허용 값은 1부터 100입니다."),
+
+    SAME_FOOD_EXISTS(HttpStatus.BAD_REQUEST, "400_8", "같은 이름의 음식이 존재합니다."),
+
 
 
     // 404 Not Found

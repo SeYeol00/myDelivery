@@ -44,7 +44,7 @@ class RestaurantIntegrationTest {
             // given
             RestaurantDto restaurantRequest = RestaurantDto.builder()
                     .id(null)
-                    .name("쉐이크쉑 청담점")
+                    .restaurantName("쉐이크쉑 청담점")
                     .minOrderPrice(1_000)
                     .deliveryFee(0)
                     .build();
@@ -64,7 +64,7 @@ class RestaurantIntegrationTest {
             RestaurantDto restaurantResponse = response.getBody();
             assertNotNull(restaurantResponse);
             assertTrue(restaurantResponse.id > 0);
-            assertEquals(restaurantRequest.name, restaurantResponse.name);
+            assertEquals(restaurantRequest.restaurantName, restaurantResponse.restaurantName);
             assertEquals(restaurantRequest.minOrderPrice, restaurantResponse.minOrderPrice);
             assertEquals(restaurantRequest.deliveryFee, restaurantResponse.deliveryFee);
 
@@ -79,7 +79,7 @@ class RestaurantIntegrationTest {
             // given
             RestaurantDto restaurantRequest = RestaurantDto.builder()
                     .id(null)
-                    .name("자담치킨 강남점")
+                    .restaurantName("자담치킨 강남점")
                     .minOrderPrice(100_000)
                     .deliveryFee(10_000)
                     .build();
@@ -99,7 +99,7 @@ class RestaurantIntegrationTest {
             RestaurantDto restaurantResponse = response.getBody();
             assertNotNull(restaurantResponse);
             assertTrue(restaurantResponse.id > 0);
-            assertEquals(restaurantRequest.name, restaurantResponse.name);
+            assertEquals(restaurantRequest.restaurantName, restaurantResponse.restaurantName);
             assertEquals(restaurantRequest.minOrderPrice, restaurantResponse.minOrderPrice);
             assertEquals(restaurantRequest.deliveryFee, restaurantResponse.deliveryFee);
 
@@ -114,7 +114,7 @@ class RestaurantIntegrationTest {
             // given
             RestaurantDto restaurantRequest = RestaurantDto.builder()
                     .id(null)
-                    .name("마라하오 위례점")
+                    .restaurantName("마라하오 위례점")
                     .minOrderPrice(100000)
                     .deliveryFee(10000)
                     .build();
@@ -134,7 +134,7 @@ class RestaurantIntegrationTest {
             RestaurantDto restaurantResponse = response.getBody();
             assertNotNull(restaurantResponse);
             assertTrue(restaurantResponse.id > 0);
-            assertEquals(restaurantRequest.name, restaurantResponse.name);
+            assertEquals(restaurantRequest.restaurantName, restaurantResponse.restaurantName);
             assertEquals(restaurantRequest.minOrderPrice, restaurantResponse.minOrderPrice);
             assertEquals(restaurantRequest.deliveryFee, restaurantResponse.deliveryFee);
 
@@ -164,7 +164,7 @@ class RestaurantIntegrationTest {
                         .orElse(null);
 
                 assertNotNull(registerRestaurant);
-                assertEquals(registerRestaurant.getName(), responseRestaurant.getName());
+                assertEquals(registerRestaurant.getRestaurantName(), responseRestaurant.getRestaurantName());
                 assertEquals(registerRestaurant.getDeliveryFee(), responseRestaurant.getDeliveryFee());
                 assertEquals(registerRestaurant.getMinOrderPrice(), responseRestaurant.getMinOrderPrice());
             }
@@ -180,7 +180,7 @@ class RestaurantIntegrationTest {
             // given
             RestaurantDto restaurantRequest = RestaurantDto.builder()
                     .id(null)
-                    .name("쉐이크쉑 청담점")
+                    .restaurantName("쉐이크쉑 청담점")
                     .minOrderPrice(500)
                     .deliveryFee(1000)
                     .build();
@@ -207,7 +207,7 @@ class RestaurantIntegrationTest {
             // given
             RestaurantDto restaurantRequest = RestaurantDto.builder()
                     .id(null)
-                    .name("쉐이크쉑 청담점")
+                    .restaurantName("쉐이크쉑 청담점")
                     .minOrderPrice(100100)
                     .deliveryFee(1000)
                     .build();
@@ -234,7 +234,7 @@ class RestaurantIntegrationTest {
             // given
             RestaurantDto restaurantRequest = RestaurantDto.builder()
                     .id(null)
-                    .name("쉐이크쉑 청담점")
+                    .restaurantName("쉐이크쉑 청담점")
                     .minOrderPrice(2220)
                     .deliveryFee(1000)
                     .build();
@@ -265,7 +265,7 @@ class RestaurantIntegrationTest {
             // given
             RestaurantDto restaurantRequest = RestaurantDto.builder()
                     .id(null)
-                    .name("쉐이크쉑 청담점")
+                    .restaurantName("쉐이크쉑 청담점")
                     .minOrderPrice(5000)
                     .deliveryFee(-500)
                     .build();
@@ -292,7 +292,7 @@ class RestaurantIntegrationTest {
             // given
             RestaurantDto restaurantRequest = RestaurantDto.builder()
                     .id(null)
-                    .name("쉐이크쉑 청담점")
+                    .restaurantName("쉐이크쉑 청담점")
                     .minOrderPrice(5000)
                     .deliveryFee(20000)
                     .build();
@@ -319,7 +319,7 @@ class RestaurantIntegrationTest {
             // given
             RestaurantDto restaurantRequest = RestaurantDto.builder()
                     .id(null)
-                    .name("쉐이크쉑 청담점")
+                    .restaurantName("쉐이크쉑 청담점")
                     .minOrderPrice(5000)
                     .deliveryFee(2200)
                     .build();
@@ -346,8 +346,10 @@ class RestaurantIntegrationTest {
     @Builder
     static class RestaurantDto {
         private Long id;
-        private String name;
+        private String restaurantName;
         private int minOrderPrice;
         private int deliveryFee;
     }
+
+
 }

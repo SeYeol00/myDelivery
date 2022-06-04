@@ -14,6 +14,7 @@ import com.sparta.mydelivery.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,14 +36,14 @@ public class OrderService {
         this.foodRepository =foodRepository;
         this.orderDetailRepository = orderDetailRepository;
     }
-
+    @Transactional
     public OrderResponseDto createOrder(OrderRequestDto orderRequestDto) {
         Order order = new Order();
         Optional<Restaurant> restaurant = restaurantRepository.findById(orderRequestDto.getRestaurantId());
         if(restaurant.isEmpty()){
             throw new CustomException("해당 음식점 아이디가 존재하지 않습니다.", ErrorCode.NOT_FOUND_RESTAURANT);
         }else{
-            Restaurant res =restaurant.get();
+            Restaurant res = restaurant.get();
             order.setRestaurant(res);
             order.setDeliveryFee(res.getDeliveryFee());
             order.setTotalPrice(0);
@@ -52,8 +53,11 @@ public class OrderService {
             int count = 0;
              for(OrderDetailRequestDto food:foods){
                  OrderDetail orderDetail = new OrderDetail();
-                 Food food1 = foodRepository.findByRestaurantIdAndFoodId(res.getId(),food.getFoodId());
+                 Food food1 = foodRepository.findByRestaurantIdAndId(res.getId(),food.getFoodId());
                 orderDetail.setFoodName(food1.getFoodName());
+                if(food.getQuantity()>100||food.getQuantity()<1){
+                    throw new CustomException("허용 값은 1부터 100입니다.",ErrorCode.FOOD_QUANTITY_NOT_ALLOWED);
+                }
                 orderDetail.setQuantity(food.getQuantity());
                 orderDetail.setPrice(food1.getFoodPrice());
                 orderDetail.setOrder(order);
