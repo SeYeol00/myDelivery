@@ -11,7 +11,7 @@ import java.util.List;
 public class OrderResponseDto {
 
     String restaurantName;
-    List<OrderDetailResponse> foods;
+    List<OrderDetailResponseDto> foods;
 
     int deliveryFee;
     int totalPrice;

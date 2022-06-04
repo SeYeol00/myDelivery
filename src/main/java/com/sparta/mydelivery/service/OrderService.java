@@ -1,8 +1,6 @@
 package com.sparta.mydelivery.service;
 
-import com.sparta.mydelivery.dto.OrderDetailRequestDto;
-import com.sparta.mydelivery.dto.OrderDetailResponse;
-import com.sparta.mydelivery.dto.OrderRequestDto;
+import com.sparta.mydelivery.dto.*;
 import com.sparta.mydelivery.exception.CustomException;
 import com.sparta.mydelivery.exception.ErrorCode;
 import com.sparta.mydelivery.model.Food;
@@ -38,7 +36,7 @@ public class OrderService {
         this.orderDetailRepository = orderDetailRepository;
     }
 
-    public void createOrder(OrderRequestDto orderRequestDto) {
+    public OrderResponseDto createOrder(OrderRequestDto orderRequestDto) {
         Order order = new Order();
         Optional<Restaurant> restaurant = restaurantRepository.findById(orderRequestDto.getRestaurantId());
         if(restaurant.isEmpty()){
@@ -64,10 +62,23 @@ public class OrderService {
              }
 
              order.setTotalPrice(count);
-            orderRepository.save(order);
+            Order currentOrder = orderRepository.save(order);
 
-            OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
-
+            OrderResponseDto orderResponseDto = new OrderResponseDto();
+            List<OrderDetailResponseDto> orderDetailResponseDtos= new ArrayList<>();
+            List<OrderDetail> details = orderDetailRepository.findAllByOrder(currentOrder);
+            for(OrderDetail detail:details){
+                OrderDetailResponseDto detailResponseDto = new OrderDetailResponseDto();
+                detailResponseDto.setFoodName(detail.getFoodName());
+                detailResponseDto.setQuantity(detail.getQuantity());
+                detailResponseDto.setPrice(detail.getPrice());
+                orderDetailResponseDtos.add(detailResponseDto);
+            }
+            orderResponseDto.setRestaurantName(currentOrder.getRestaurant().getRestaurantName());
+            orderResponseDto.setDeliveryFee(currentOrder.getDeliveryFee());
+            orderResponseDto.setTotalPrice(currentOrder.getTotalPrice());
+            orderResponseDto.setFoods(orderDetailResponseDtos);
+            return orderResponseDto;
 
 
 
@@ -79,4 +90,28 @@ public class OrderService {
 
     }
 
+    public OrderAllResponseDto getOrders() {
+        OrderAllResponseDto allResponseDto = new OrderAllResponseDto();
+        List<Order> Orders = orderRepository.findAll();
+
+        for(Order currentOrder:Orders){
+            OrderResponseDto orderResponseDto = new OrderResponseDto();
+            List<OrderDetailResponseDto> orderDetailResponseDtos= new ArrayList<>();
+            List<OrderDetail> details = orderDetailRepository.findAllByOrder(currentOrder);
+            for(OrderDetail detail:details){
+                OrderDetailResponseDto detailResponseDto = new OrderDetailResponseDto();
+                detailResponseDto.setFoodName(detail.getFoodName());
+                detailResponseDto.setQuantity(detail.getQuantity());
+                detailResponseDto.setPrice(detail.getPrice());
+                orderDetailResponseDtos.add(detailResponseDto);
+            }
+            orderResponseDto.setRestaurantName(currentOrder.getRestaurant().getRestaurantName());
+            orderResponseDto.setDeliveryFee(currentOrder.getDeliveryFee());
+            orderResponseDto.setTotalPrice(currentOrder.getTotalPrice());
+            orderResponseDto.setFoods(orderDetailResponseDtos);
+            allResponseDto.getOrders().add(orderResponseDto);
+        }
+
+        return allResponseDto;
+    }
 }

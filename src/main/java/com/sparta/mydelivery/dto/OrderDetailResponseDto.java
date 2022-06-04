@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class OrderDetailResponse {
+public class OrderDetailResponseDto {
 
     String foodName;
     int quantity;
