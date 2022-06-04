@@ -59,13 +59,17 @@ public class OrderService {
                     throw new CustomException("허용 값은 1부터 100입니다.",ErrorCode.FOOD_QUANTITY_NOT_ALLOWED);
                 }
                 orderDetail.setQuantity(food.getQuantity());
-                orderDetail.setPrice(food1.getFoodPrice());
+                orderDetail.setPrice(food1.getFoodPrice()* food.getQuantity());
                 orderDetail.setOrder(order);
-                 count = count + orderDetail.getPrice() * orderDetail.getQuantity();
+                 count = count + orderDetail.getPrice();
                  orderDetailRepository.save(orderDetail);
              }
+             if(count< res.getMinOrderPrice()){
+                 throw new CustomException("최소 주문 가격을 넘도록 해주세요.",ErrorCode.NOT_OVER_MINIMUM_PRICE);
+             }
 
-             order.setTotalPrice(count);
+             order.setTotalPrice(count+ order.getDeliveryFee());
+
             Order currentOrder = orderRepository.save(order);
 
             OrderResponseDto orderResponseDto = new OrderResponseDto();

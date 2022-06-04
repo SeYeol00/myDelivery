@@ -214,26 +214,26 @@ class OrderIntegrationTest {
         assertEquals(3, orderDto.foods.size());
         // 음식1 주문 확인
         FoodOrderDto foodOrder1 = orderDto.foods.stream()
-                .filter(foodOrderDto -> foodOrderDto.name.equals(food1.getFoodName()))
+                .filter(foodOrderDto -> foodOrderDto.foodName.equals(food1.getFoodName()))
                 .findAny().orElse(null);
         assertNotNull(foodOrder1);
-        assertEquals(food1.foodName, foodOrder1.name);
+        assertEquals(food1.foodName, foodOrder1.foodName);
         assertEquals(foodOrder1.quantity, foodOrder1.quantity);
         assertEquals(10900, foodOrder1.price);
         // 음식2 주문 확인
         FoodOrderDto foodOrder2 = orderDto.foods.stream()
-                .filter(foodOrderDto -> foodOrderDto.name.equals(food2.getFoodName()))
+                .filter(foodOrderDto -> foodOrderDto.foodName.equals(food2.getFoodName()))
                 .findAny().orElse(null);
         assertNotNull(foodOrder2);
-        assertEquals(food2.foodName, foodOrder2.name);
+        assertEquals(food2.foodName, foodOrder2.foodName);
         assertEquals(foodOrder2.quantity, foodOrder2.quantity);
         assertEquals(9800, foodOrder2.price);
         // 음식3 주문 확인
         FoodOrderDto foodOrder3 = orderDto.foods.stream()
-                .filter(foodOrderDto -> foodOrderDto.name.equals(food3.getFoodName()))
+                .filter(foodOrderDto -> foodOrderDto.foodName.equals(food3.getFoodName()))
                 .findAny().orElse(null);
         assertNotNull(foodOrder3);
-        assertEquals(food3.foodName, foodOrder3.name);
+        assertEquals(food3.foodName, foodOrder3.foodName);
         assertEquals(foodOrder3.quantity, foodOrder3.quantity);
         assertEquals(17700, foodOrder3.price);
 
@@ -373,26 +373,26 @@ class OrderIntegrationTest {
         assertEquals(3, orderDto.foods.size());
         // 음식1 주문 확인
         FoodOrderDto foodOrder1 = orderDto.foods.stream()
-                .filter(foodOrderDto -> foodOrderDto.name.equals(food1.getFoodName()))
+                .filter(foodOrderDto -> foodOrderDto.foodName.equals(food1.getFoodName()))
                 .findAny().orElse(null);
         assertNotNull(foodOrder1);
-        assertEquals(food1.foodName, foodOrder1.name);
+        assertEquals(food1.foodName, foodOrder1.foodName);
         assertEquals(foodOrder1.quantity, foodOrder1.quantity);
         assertEquals(10900, foodOrder1.price);
         // 음식2 주문 확인
         FoodOrderDto foodOrder2 = orderDto.foods.stream()
-                .filter(foodOrderDto -> foodOrderDto.name.equals(food2.getFoodName()))
+                .filter(foodOrderDto -> foodOrderDto.foodName.equals(food2.getFoodName()))
                 .findAny().orElse(null);
         assertNotNull(foodOrder2);
-        assertEquals(food2.foodName, foodOrder2.name);
+        assertEquals(food2.foodName, foodOrder2.foodName);
         assertEquals(foodOrder2.quantity, foodOrder2.quantity);
         assertEquals(9800, foodOrder2.price);
         // 음식3 주문 확인
         FoodOrderDto foodOrder3 = orderDto.foods.stream()
-                .filter(foodOrderDto -> foodOrderDto.name.equals(food3.getFoodName()))
+                .filter(foodOrderDto -> foodOrderDto.foodName.equals(food3.getFoodName()))
                 .findAny().orElse(null);
         assertNotNull(foodOrder3);
-        assertEquals(food3.foodName, foodOrder3.name);
+        assertEquals(food3.foodName, foodOrder3.foodName);
         assertEquals(foodOrder3.quantity, foodOrder3.quantity);
         assertEquals(17700, foodOrder3.price);
 
@@ -431,7 +431,7 @@ class OrderIntegrationTest {
     @Getter
     @Setter
     static class FoodOrderDto {
-        String name;
+        String foodName;
         int quantity;
         int price;
     }

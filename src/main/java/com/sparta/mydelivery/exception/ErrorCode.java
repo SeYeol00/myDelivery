@@ -21,7 +21,7 @@ public enum ErrorCode {
 
     SAME_FOOD_EXISTS(HttpStatus.BAD_REQUEST, "400_8", "같은 이름의 음식이 존재합니다."),
 
-
+    NOT_OVER_MINIMUM_PRICE(HttpStatus.BAD_REQUEST, "400_8", "최소 주문 가격을 넘도록 해주세요."),
 
     // 404 Not Found
     NOT_FOUND_RESTAURANT(HttpStatus.NOT_FOUND, "404_1", "해당 음식점 아이디가 존재하지 않습니다."),
