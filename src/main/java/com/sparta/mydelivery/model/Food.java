@@ -1,5 +1,7 @@
 package com.sparta.mydelivery.model;
 
+import com.sparta.mydelivery.dto.FoodRequestDto;
+import com.sparta.mydelivery.validator.FoodValidator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,5 +26,11 @@ public class Food {
 
     @Column(nullable = false)
     private int foodPrice;
+
+    public Food (FoodRequestDto foodRequestDto, Restaurant restaurant){
+        this.restaurant =restaurant;
+        this.foodName = foodRequestDto.getFoodName();
+        this.foodPrice = foodRequestDto.getFoodPrice();
+    }
 
 }

@@ -7,6 +7,7 @@ import com.sparta.mydelivery.model.Food;
 import com.sparta.mydelivery.model.Restaurant;
 import com.sparta.mydelivery.repository.FoodRepository;
 import com.sparta.mydelivery.repository.RestaurantRepository;
+import com.sparta.mydelivery.validator.FoodValidator;
 import org.cef.handler.CefLoadHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,38 +23,27 @@ public class FoodService {
 
     private final RestaurantRepository restaurantRepository;
 
+    private final FoodValidator foodValidator;
+
     @Autowired
-    public FoodService(FoodRepository foodRepository,RestaurantRepository restaurantRepository){
+    public FoodService(FoodRepository foodRepository,RestaurantRepository restaurantRepository,FoodValidator foodValidator){
         this.foodRepository =  foodRepository;
         this.restaurantRepository = restaurantRepository;
+        this.foodValidator = foodValidator; // 빈으로 꼭 등록하기
     }
 
     @Transactional
     public void createFood(Long restaurantId, List<FoodRequestDto> foodList) {
-
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
 
         if(restaurant.isPresent()){
             Restaurant res = restaurant.get();
             for(FoodRequestDto foodRequestDto: foodList){
-                Food food = new Food();
-                food.setRestaurant(res);
-                food.setFoodName(foodRequestDto.getFoodName());
-                if(foodRepository.existsFoodByFoodNameAndRestaurant(food.getFoodName(), res)){
-                    throw new CustomException("같은 이름의 음식이 존재합니다.", ErrorCode.SAME_FOOD_EXISTS);
+                if(foodValidator.validateFoodInput(foodRequestDto,res)){
+                    Food food = new Food(foodRequestDto,res);
+                    foodRepository.save(food);
                 }
-                food.setFoodPrice(foodRequestDto.getFoodPrice());
-                if(food.getFoodPrice()>1000000||food.getFoodPrice()<100){
-                    throw new CustomException("음식 가격은 100원 ~ 1000000원 입니다.",ErrorCode.OUT_OF_RANGE_FOOD_PRICE);
-
-                }
-                if(food.getFoodPrice()%100!=0){
-                    throw new CustomException("100원 단위로만 입력 가능합니다.",ErrorCode.NOT100WON_FOOD_PRICE);
-
-                }
-                foodRepository.save(food);
             }
-
         }else{
             throw new CustomException("해당 음식점 아이디가 존재하지 않습니다.", ErrorCode.NOT_FOUND_RESTAURANT);
         }

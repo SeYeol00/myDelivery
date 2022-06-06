@@ -1,6 +1,7 @@
 package com.sparta.mydelivery.model;
 
 import com.sparta.mydelivery.dto.RestaurantRequestDto;
+import com.sparta.mydelivery.validator.RestaurantValidator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,6 +29,7 @@ public class Restaurant {
 
 
     public Restaurant(RestaurantRequestDto restaurantRequestDto){
+        RestaurantValidator.validateRestaurantInput(restaurantRequestDto);
         this.restaurantName = restaurantRequestDto.getRestaurantName();
         this.minOrderPrice = restaurantRequestDto.getMinOrderPrice();
         this.deliveryFee = restaurantRequestDto.getDeliveryFee();
