@@ -51,11 +51,9 @@ public class FoodService {
     }
 
     public List<Food> getFoods(Long restaurantId) {
-        Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
-        if(restaurant.isPresent()){
-            Restaurant res = restaurant.get();
-            List<Food> foods = foodRepository.findAllByRestaurant(res);
-            return foods;
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElse(null);
+        if(restaurant!=null){
+            return foodRepository.findAllByRestaurant(restaurant);
         }else{
             throw new CustomException("해당 음식점 아이디가 존재하지 않습니다.", ErrorCode.NOT_FOUND_RESTAURANT);
         }
