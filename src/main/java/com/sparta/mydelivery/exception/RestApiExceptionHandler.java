@@ -24,7 +24,7 @@ public class RestApiExceptionHandler {
     }
     @ExceptionHandler(value = CustomException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    protected ResponseEntity<RestApiException> handleCustomException(CustomException e) {
+    public ResponseEntity<RestApiException> handleCustomException(CustomException e) {
         RestApiException restApiException = RestApiException.of(e.getErrorCode());
         restApiException.setErrorMessage(e.getMessage());
         return new ResponseEntity<>(restApiException, HttpStatus.BAD_REQUEST);
