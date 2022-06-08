@@ -15,5 +15,5 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query("select this from User this where this.username=:seyeal")
     List<User> getUsers(@Param("seyeal") String name);
 
-
+    //연습용 입니다.
 }
